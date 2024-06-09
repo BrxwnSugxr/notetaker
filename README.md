@@ -153,22 +153,6 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 - Set the server to listen on a specified port.
 - Log a message indicating the server is running and the URL to access it.
 
-## Getting Started
-
-To get started with the Note Taker application, follow these steps:
-
-Back End Setup:
-
-The application should include a db.json file in the develop/db directory to store and retrieve notes.
-Use the fs module to read and write to this file.
-HTML Routes:
-
-GET /notes should return the notes.html file.
-GET \* should return the index.html file.
-API Routes:
-
-GET /api/notes should read the db.json file and return all saved notes as JSON.
-POST /api/notes should receive a new note, save it to the db.json file with a unique id, and return the new note to the client.
 
 ## License
 
