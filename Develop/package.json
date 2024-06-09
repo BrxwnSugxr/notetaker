@@ -4,13 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node Develop/server.js",
+    "dev": "nodemon Develop/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.19.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.3"
