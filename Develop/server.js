@@ -16,4 +16,12 @@ app.get('note', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/note.html'));
 });
 
+app.get('/api/notes', (req, res) => {
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    let jsonData = JSON.parse(data);
+    console.log(jsonData);
+    res.json(jsonData);
+  });
+});
+
 app.listen(PORT, () => console.info(`port number is http://localhost:${PORT}`));
