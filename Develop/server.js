@@ -24,4 +24,65 @@ app.get('/api/notes', (req, res) => {
   });
 });
 
-app.listen(PORT, () => console.info(`port number is http://localhost:${PORT}`));
+const readThenAppendToJson = (addedNote, file) => {
+  fs.readFile(file, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+  
+      const parsedData = JSON.parse(data);
+   
+      parsedData.push(addedNote);
+      writeNewNoteToJson(file, parsedData);
+    }
+  });
+};
+
+const writeNewNoteToJson = (destination, content) =>
+  fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
+    err ? console.error(err) : console.info(`\nData written to ${destination}`)
+  );
+
+app.post('/api/notes', (req, res) => {
+  const { title, text } = req.body;
+  if (title && text) {
+
+    const newNote = {
+      title: title,
+      text: text,
+      id: uuid(),
+    };
+
+ 
+    readThenAppendToJson(newNote, './db/db.json');
+
+    const response = {
+      status: 'success',
+      body: newNote,
+    };
+
+    res.json(response);
+  } else {
+    res.json('Error in posting new note');
+  }
+});
+
+app.delete('/api/notes/:id', (req, res) => {
+  let id = req.params.id;
+  let parsedData;
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      parsedData = JSON.parse(data);
+      const filterData = parsedData.filter((note) => note.id !== id);
+      writeNewNoteToJson('./db/db.json', filterData);
+    }
+  });
+  res.send(`Deleted note with ${req.params.id}`);
+});
+
+
+app.listen(PORT, () =>
+  console.log(`App listening at http://localhost:${PORT}`)
+);
