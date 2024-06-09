@@ -28,9 +28,9 @@ To install the necessary dependencies, run the following command:
    cd Develop
    ```
 
-```sh
-npm install
-```
+   ```sh
+   npm install
+   ```
 
 ### Usage
 
