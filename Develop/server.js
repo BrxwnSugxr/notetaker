@@ -1,11 +1,11 @@
-const express = requier('express');
+const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
 const app = express();
 const PORT = 3001;
 
-app.use(static.express('public'));
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json);
 
@@ -29,9 +29,8 @@ const readThenAppendToJson = (addedNote, file) => {
     if (err) {
       console.error(err);
     } else {
-  
       const parsedData = JSON.parse(data);
-   
+
       parsedData.push(addedNote);
       writeNewNoteToJson(file, parsedData);
     }
@@ -46,14 +45,12 @@ const writeNewNoteToJson = (destination, content) =>
 app.post('/api/notes', (req, res) => {
   const { title, text } = req.body;
   if (title && text) {
-
     const newNote = {
       title: title,
       text: text,
       id: uuid(),
     };
 
- 
     readThenAppendToJson(newNote, './db/db.json');
 
     const response = {
@@ -81,7 +78,6 @@ app.delete('/api/notes/:id', (req, res) => {
   });
   res.send(`Deleted note with ${req.params.id}`);
 });
-
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT}`)
