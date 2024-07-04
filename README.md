@@ -11,6 +11,8 @@ The following GIF shows the web application's appearance and functionality:
 ![Existing notes are listed in the left-hand column with empty fields on the right-hand side for the new note’s title and text.](./Assets/11-express.gif)
 
 
+
+
 ## Pseudo Code for JavaScript
 
 1. **Setup Event Listeners**
